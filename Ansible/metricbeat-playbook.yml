@@ -12,7 +12,7 @@
     command: dpkg -i metricbeat-7.6.1-amd64.deb
 
     # Use copy module
-  - name: drop in metricbeat config
+  - name: drop in metricbeat-config.yml
     copy:
       src: /etc/ansible/roles/files/metricbeat-config.yml
       dest: /etc/metricbeat/metricbeat.yml

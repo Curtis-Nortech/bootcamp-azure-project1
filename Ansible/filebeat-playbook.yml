@@ -10,7 +10,7 @@
   - name: install filebeat deb
     command: dpkg -i filebeat-7.6.1-amd64.deb
 
-  - name: drop in filebeat.yml
+  - name: drop in filebeat-config.yml
     copy:
       src: /etc/ansible/roles/files/filebeat-config.yml
       dest: /etc/filebeat/filebeat.yml
