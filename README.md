@@ -27,33 +27,33 @@ Integrating an ELK server allows users to easily monitor the vulnerable VMs for 
 - _TODO: What does Filebeat watch for?_
 - _TODO: What does Metricbeat record?_
 
-The configuration details of each machine may be found below.
-_Note: Use the [Markdown Table Generator](http://www.tablesgenerator.com/markdown_tables) to add/remove values from the table_.
+The configuration details of each machine may be found below:
 
-| Name     | Function | IP Address | Operating System |
-|----------|----------|------------|------------------|
-| Jump Box | Gateway  | 10.0.0.1   | Linux            |
-| TODO     |          |            |                  |
-| TODO     |          |            |                  |
-| TODO     |          |            |                  |
+| Name               | Function            | IP Address | Operating System |
+|--------------------|---------------------|------------|------------------|
+| JumpBoxProvisioner | Gateway/Provisioner | 10.1.0.4   | Linux            |
+| Web-1              | DVWA Web Server     | 10.1.0.5   | Linux            |
+| Web-2              | DVWA Web Server     | 10.1.0.6   | Linux            |
+| Web-3              | DVWA Web Server     | 10.1.0.7   | Linux            |
+| ElkStackVM         | Elk Stack           | 10.0.0.4   | Linux            |
 
 ### Access Policies
 
 The machines on the internal network are not exposed to the public Internet. 
 
-Only the _____ machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
-- _TODO: Add whitelisted IP addresses_
+Only the JumpBoxProvisioner machine can accept connections from the Internet. Access to this machine is only allowed from whitelisted IP addresses of your choosing.
 
-Machines within the network can only be accessed by _____.
-- _TODO: Which machine did you allow to access your ELK VM? What was its IP address?_
+Machines within the network can only be accessed by the JumpBoxProvisioner at IP Address 10.1.0.4.
 
 A summary of the access policies in place can be found in the table below.
 
-| Name     | Publicly Accessible | Allowed IP Addresses |
-|----------|---------------------|----------------------|
-| Jump Box | Yes/No              | 10.0.0.1 10.0.0.2    |
-|          |                     |                      |
-|          |                     |                      |
+| Name               | Publicly Accessible? | Allowed IP Addresses                                                                                 |
+|--------------------|:--------------------:|------------------------------------------------------------------------------------------------------|
+| JumpBoxProvisioner | Yes                  | Internal: None<br>External: Whitelisted Public IP of your choosing                                   |
+| Web-1              | No                   | Internal: 10.1.0.4<br>External: None                                                                 |
+| Web-2              | No                   | Internal: 10.1.0.4<br>External: None                                                                 |
+| Web-3              | No                   | Internal: 10.1.0.4<br>External: None                                                                 |
+| ElkStackVM         | Yes                  | Internal: 10.1.0.4, 10.1.0.5, 10.1.0.6, 10.1.0.7<br>External: Whitelisted Public IP of your choosing |
 
 ### Elk Configuration
 
