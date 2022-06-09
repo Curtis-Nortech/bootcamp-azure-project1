@@ -2,11 +2,9 @@
 
 The files in this repository were used to configure the network depicted below.
 
-![Network Diagram](Diagrams/Week_13_Assignment_Network_Diagram.png)
+![Network Diagram](Diagrams/Week_13_Assignment_Network_Diagram_v3.png)
 
-These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the [File Beat Playbook](/Ansible/filebeat-playbook.yml) file may be used to install only certain pieces of it, such as Filebeat.
-
-  - _TODO: Enter the playbook file._
+These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the [File Beat Playbook](/Ansible/filebeat_metricbeat-playbook.yml) file may be used to install only certain pieces of it, such as Filebeat.
 
 This document contains the following details:
 - Description of the Topology
@@ -23,9 +21,8 @@ The main purpose of this network is to expose a load-balanced and monitored inst
 
 Load balancing ensures that the application will be highly available, in addition to restricting access to the network.
 
-Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the _____ and system _____.
-- _TODO: What does Filebeat watch for?_
-- _TODO: What does Metricbeat record?_
+Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the logs and other files, as well as system metrics.
+
 
 The configuration details of each machine may be found below:
 
@@ -34,7 +31,7 @@ The configuration details of each machine may be found below:
 | JumpBoxProvisioner | Gateway/Provisioner | 10.1.0.4   | Linux            |
 | Web-1              | DVWA Web Server     | 10.1.0.5   | Linux            |
 | Web-2              | DVWA Web Server     | 10.1.0.6   | Linux            |
-| Web-3              | DVWA Web Server     | 10.1.0.7   | Linux            |
+| Web-3              | DVWA Web Server     | 10.1.0.8   | Linux            |
 | ElkStackVM         | Elk Stack           | 10.0.0.4   | Linux            |
 
 ### Access Policies
@@ -47,37 +44,42 @@ Machines within the network can only be accessed by the JumpBoxProvisioner at IP
 
 A summary of the access policies in place can be found in the table below.
 
-| Name               | Publicly Accessible? | Allowed IP Addresses                                                                                 |
-|--------------------|:--------------------:|------------------------------------------------------------------------------------------------------|
-| JumpBoxProvisioner | Yes                  | Internal: None<br>External: Whitelisted Public IP of your choosing                                   |
-| Web-1              | No                   | Internal: 10.1.0.4<br>External: None                                                                 |
-| Web-2              | No                   | Internal: 10.1.0.4<br>External: None                                                                 |
-| Web-3              | No                   | Internal: 10.1.0.4<br>External: None                                                                 |
-| ElkStackVM         | Yes                  | Internal: 10.1.0.4, 10.1.0.5, 10.1.0.6, 10.1.0.7<br>External: Whitelisted Public IP of your choosing |
+| Name               | Publicly Accessible? | Allowed IP Addresses                                                                      |
+|--------------------|:--------------------:|-------------------------------------------------------------------------------------------|
+| JumpBoxProvisioner | Yes                  | Internal: None<br>External: Any (w/appropriate SSH Key)                                   |
+| Web-1              | No                   | Internal: 10.1.0.4<br>External: None                                                      |
+| Web-2              | No                   | Internal: 10.1.0.4<br>External: None                                                      |
+| Web-3              | No                   | Internal: 10.1.0.4<br>External: None                                                      |
+| ElkStackVM         | Yes                  | Internal: 10.1.0.4, 10.1.0.5, 10.1.0.6, 10.1.0.8<br>External: Any (w/appropriate SSH Key) |
 
 ### Elk Configuration
 
-Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because...
+Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because once you have your machine spun up, 
 - _TODO: What is the main advantage of automating configuration with Ansible?_
 
 The playbook implements the following tasks:
-- _TODO: In 3-5 bullets, explain the steps of the ELK installation play. E.g., install Docker; download image; etc._
-- ...
-- ...
+- Using APT module installs Docker.io
+- Using APT module installs Python3-pip
+- Using PIP module installs docker
+- Using Command module increases virtual memory making this peristant
+- Using Shell module increases virtual memory on restart
+- Using Docker-Container module download and launch a docker ELK container
+- Using Systemd module enables docker service on boot
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
-**Note**: The following image link needs to be updated. Replace `docker_ps_output.png` with the name of your screenshot image file.  
-
-
-![TODO: Update the path with the name of your screenshot of docker ps output](Images/docker_ps_output.png)
+![Docker PS Output](Images/docker_ps_output.png)
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
-- _TODO: List the IP addresses of the machines you are monitoring_
+- 10.1.0.4
+- 10.1.0.5
+- 10.1.0.6
+- 10.1.0.8
 
 We have installed the following Beats on these machines:
-- _TODO: Specify which Beats you successfully installed_
+- Filebeat
+- Metricbeat
 
 These Beats allow us to collect the following information from each machine:
 - _TODO: In 1-2 sentences, explain what kind of data each beat collects, and provide 1 example of what you expect to see. E.g., `Winlogbeat` collects Windows logs, which we use to track user logon events, etc._
